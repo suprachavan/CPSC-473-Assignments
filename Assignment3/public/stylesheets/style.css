@@ -1,0 +1,48 @@
+/*
+CPSC 473 Assignment 3 
+Submitted by: Supra Chavan(CWID: 893448084)
+Email:supra.chavan@csu.fullerton.edu
+File: CSS file for index.html
+*/
+
+body {
+  width: 855px;
+  margin: auto;
+  background: gainsboro;
+  font-size: 100%;
+  font-family: sans-serif;
+}
+
+h1 {
+	border-width: 5px;
+}
+
+p{
+	padding: 5px;
+	background: gray;
+	border-radius: 5px;
+}
+
+button {
+  padding: 5px;
+  border-radius: 5px;
+  background: olivedrab;
+  cursor: pointer;
+  font-size: 1.5em;
+  margin-left: 5px;
+}
+
+.r {
+	padding: 5px;
+	background: SkyBlue;
+	border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+
