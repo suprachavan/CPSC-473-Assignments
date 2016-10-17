@@ -2,7 +2,7 @@
 Contains assignments submitted for course CPSC 473
 
 Assignment 3
-To do-
+
 Completed the following steps:
 1. Complete the exercise starting on p. 143 of Chapter 4, “Array Practice.”
 2. Expose each of six functions you wrote in Step 1 as a web service API using Node.js and Express.
