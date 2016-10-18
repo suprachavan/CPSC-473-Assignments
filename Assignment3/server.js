@@ -41,38 +41,55 @@ app.use('/', express.static('public'));
 
 console.log('server side, listening at port 3000');
 app.post('/avg', function(req, res){
-  var result = ArrayOps.funcAvg(req.body);
-  res.json(result);
+  var result = ArrayOps.funcAvg(req.body.num);
+  var response = {"result": result};
+  res.json(response);
 });
 
 app.post('/largestNumber', function(req, res){
-  var result = ArrayOps.funcLargest(req.body);
-  res.json(result);
+  var result = ArrayOps.funcLargest(req.body.num);
+  var response = {"result": result};
+  res.json(response);
 });
 
 app.post('/atleastOneEvenNumber', function(req, res){
-  var result = ArrayOps.funcEvenOne(req.body);
-  res.json(result);
+  var param = JSON.stringify(req.body);
+  var obj = JSON.parse(param);
+  var result = ArrayOps.funcEvenOne(obj.num);
+  var response = {"result": result};
+  res.json(response);
 });
 
 app.post('/allEvenNumbers', function(req, res){
-  var result = ArrayOps.funcEvenAll(req.body);
-  res.json(result);
+  var param = JSON.stringify(req.body);
+  var obj = JSON.parse(param);
+  var result = ArrayOps.funcEvenAll(obj.num);
+  var response = {"result": result};
+  res.json(response);
 });
 
 app.post('/stringContainsOnce', function(req, res){
-  var result = ArrayOps.funcArrContains(req.body.strArr, req.body.subStr);
-  res.json(result);
+  var param = JSON.stringify(req.body);
+  var obj = JSON.parse(param);
+  var result = ArrayOps.funcArrContains(obj.strArr, obj.subStr);
+  var response = {"result": result};
+  res.json(response);
 });
 
 app.post('/stringContainsTwice', function(req, res){
-  var result = ArrayOps.funcArrContainsTwo(req.body.strArr, req.body.subStr);
-  res.json(result);
+  var param = JSON.stringify(req.body);
+  var obj = JSON.parse(param);
+  var result = ArrayOps.funcArrContainsTwo(obj.strArr, obj.subStr);
+  var response = {"result": result};
+  res.json(response);
 });
 
 app.post('/stringContainsNTimes', function(req, res){
-  var result = ArrayOps.funcArrContainsNTimes(req.body.strArr, req.body.subStr, req.body.number);
-  res.json(result);
+  var param = JSON.stringify(req.body);
+  var obj = JSON.parse(param);
+  var result = ArrayOps.funcArrContainsNTimes(obj.strArr, obj.subStr, obj.number);
+  var response = {"result": result};
+  res.json(response);
 });
 
 app.listen(3000);

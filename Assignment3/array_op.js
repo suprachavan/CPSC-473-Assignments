@@ -45,25 +45,17 @@ A.funcEvenOne = function(nums) {
 
 A.funcEvenAll = function(nums) {
 
-    var arrFlag = [];
+    var occurenceCounter =0;
     for(i=0;i<nums.length;i++){
         if(nums[i]%2 === 0) {
-            arrFlag[i] = true;
-        }
-        else{
-            arrFlag[i] = false;
+            occurenceCounter++;
         }
     }
-    for(i=0;i<arrFlag.length;i++)
-    {
-        if(arrFlag[i] === true)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+    if(occurenceCounter ===nums.length){
+        return true;
+    }
+    else{
+        return false;
     }
 };
 

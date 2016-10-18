@@ -15,9 +15,9 @@ File: Client side javascript
         'use strict';
 
         console.log('app.js at client side');
-        var obj = [2,22,32,4];
-        var str = ['hello', 'world','goodbye','world'];
-        var sub = 'hello';
+        var obj = {num: [2,22,32,4]};
+        var str = ['hello', 'world','goodbye','world', 'hel','hell'];
+        var sub = 'hell';
         var count =3;
         var strObj = {
                     strArr: str, 
@@ -27,7 +27,7 @@ File: Client side javascript
                     subStr: sub,
                     number: count};
 
-        $('.num_arr').text('Input Numbers Array : '+obj);
+        $('.num_arr').text('Input Numbers Array : '+obj.num);
         $('.str_arr').text('Input String Array: '+strObj.strArr);
         $('.sub_str').text('Input sub-string to look for: '+strObj.subStr);
         $('.count').text('Occurence count: '+strObj2.number);
@@ -58,11 +58,12 @@ File: Client side javascript
                                     console.log('success');
                                     console.log(data);
                                     $result = $('<p class='+classStr+'>').
-                                    text('Result : '+data);
+                                    text('Result : '+data.result);
                                     $('.result1').append($result);
                                 }
                     });
         });
+
         $('.lrge_btn').on('click', function (e) {
             e.preventDefault();
             console.log('largest number button clicked');
@@ -78,11 +79,12 @@ File: Client side javascript
                                     console.log('success');
                                     console.log(data);
                                     $result = $('<p class='+classStr+'>').
-                                    text('Result : '+data);
+                                    text('Result : '+data.result);
                                     $('.result2').append($result);
                                 }
                     });
         });
+        
         $('.evn1_btn').on('click', function (e) {
             e.preventDefault();
             console.log('Even one button clicked');
@@ -98,7 +100,7 @@ File: Client side javascript
                                     console.log('success');
                                     console.log(data);
                                      $result = $('<p class='+classStr+'>').
-                                     text('Result : '+data);
+                                     text('returned '+data.result);
                                     $('.result3').append($result);
                                 }
                     });
@@ -119,12 +121,9 @@ File: Client side javascript
                                     console.log('success');
                                     console.log(JSON.stringify(data));
                                     if (data) {
+                                    	console.log(data.result);
                                         $result = $('<p class='+classStr+'>').
-                                        text('returned true, all numbers even');
-                                        $('.result4').append($result);
-                                    } else {
-                                        $result = $('<p class='+classStr+'>').
-                                        text('Function returned false');
+                                        text('returned '+data.result);
                                         $('.result4').append($result);
                                     }
                                 }
@@ -147,13 +146,9 @@ File: Client side javascript
                                     console.log(JSON.stringify(data));
                                     if (data) {
                                         $result = $('<p class='+classStr+'>').
-                                        text('returned true, str atleast once');
+                                        text('returned '+data.result);
                                         $('.result5').append($result);
-                                    } else {
-                                        $result = $('<p class='+classStr+'>').
-                                        text('Function returned false');
-                                        $('.result5').append($result);
-                                    }
+                                    } 
                                 }
                 });
     });
@@ -174,11 +169,7 @@ File: Client side javascript
                                     console.log(JSON.stringify(data));
                                     if (data) {
                                         $result = $('<p class='+classStr+'>').
-                                        text('returned true, str occurs twice');
-                                        $('.result6').append($result);
-                                    } else {
-                                        $result = $('<p class='+classStr+'>').
-                                        text('Function returned false');
+                                        text('returned '+data.result);
                                         $('.result6').append($result);
                                     }
                                 }
@@ -201,13 +192,9 @@ File: Client side javascript
                                     console.log(JSON.stringify(data));
                                     if (data) {
                                         $result = $('<p class='+classStr+'>').
-                                        text('returned true, str n times');
+                                        text('returned '+data.result);
                                         $('.result7').append($result);
-                                    } else {
-                                        $result = $('<p class='+classStr+'>').
-                                        text('Function returned false');
-                                        $('.result7').append($result);
-                                    }
+                                    } 
                                 }
                 });
     });
