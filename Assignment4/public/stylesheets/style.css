@@ -1,0 +1,17 @@
+body {
+  padding: 50px;
+  background-color: rgba(100, 53, 201, 0.37);
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.column{
+	max-width: 450px;
+}
+
+.ui.middle.aligned.center.aligned.grid {
+	background-color: rgba(2, 103, 98, 1);
+}

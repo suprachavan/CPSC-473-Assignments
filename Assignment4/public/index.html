@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<!--
+CPSC 473 Assignment 4 
+Submitted by: Supra Chavan(CWID: 893448084)
+Email:supra.chavan@csu.fullerton.edu
+File: client side index.html
+-->
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Assignment 4 Online Trivia Game</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+    <script src="javascripts/app.js"></script>
+</head>
+
+<body>
+    <div class="ui middle aligned center aligned grid">
+    	<div class="column">
+    		<div class="ui header">Online Trivia Game</div>
+    		<div class="ui gray segment">
+    			<div class="ui blue segment">
+		    		<div class="ui allquestions_label label"></div>
+		    		<div class="span"></div>
+		    	</div>
+		    	<div class="ui blue segment">
+	    			<div class="ui blue post_question button">Post a new question</div>
+	    			<div class="ui gray questions segment">
+		    			<form class="ui movie_form form">
+				    		<div class="field">
+				    			<div class="ui left input">
+				                    <input type="text" name="question" placeholder="Enter a new question ">
+				                </div>
+				    		</div>
+				    		<div class="field">
+				    			<div class="ui left input">
+				                    <input type="text" name="answerid" placeholder="Enter an answer id for new question ">
+				                </div>
+				    		</div>
+				    		<div class="field">
+				    			<div class="ui left input">
+				    				<input type="text" name="answer" placeholder="Enter correct answer for the question">
+				    			</div>
+				    		</div>
+				    		<div class="ui green submit button">Submit
+				    		</div>
+				    		
+				    	</form>
+		    		</div>
+		    		<div class="result1"></div>
+		    	</div>
+		    	<div class="ui blue segment">
+			    	<div class="ui red show_question button">Show a new question</div>	
+		    		<div class="ui gray answers segment">
+		    			<form class="ui qa_form form">
+		    				<div class="field">
+				    			<div class="ui input">
+				    				<div class="ui question_label label"></div>
+				    			</div>
+				    		</div>
+				    		<div class="field">
+				    			<div class="ui left input">
+				    				<input type="text" name="uanswer" placeholder="Enter your answer for the question">
+				    			</div>
+				    		</div>
+				    		<div class="ui green post_answer button">Submit your answer</div>
+				    	</form>
+			    	</div>
+			    	<div class="result2"></div>
+				</div>    
+				<div class="ui blue segment">
+			    	<div class="ui red show_score button">Show the scores</div>	
+		    		<div class="ui gray scores segment">
+		    			
+		    				<div class="field">
+				    			<div class="ui input">
+				    				<div class="ui right_score_label label"></div>
+				    			</div>
+				    		</div>
+				    		<div class="field">
+				    			<div class="ui input">
+				    				<div class="ui wrong_score_label label"></div>
+				    			</div>
+				    		</div>
+				    		
+			    	</div>
+				</div>    
+			</div>
+
+
+    	</div>
+    	
+    </div>   
+</body>
+
+</html>
