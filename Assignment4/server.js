@@ -33,8 +33,8 @@ mongoose.set('debug', true);
 
 var qaSchema = new mongoose.Schema({  
   question: String,
-  answer: String,
-  answerId: Number
+  answer: String
+  // answerId: String
 });
 
 var questionAnswerDB = mongoose.model('qa', qaSchema); 
@@ -49,25 +49,8 @@ app.use("/", express.static("public"));
 console.log('server side, listening at port 3000');
 
 app.get('/question', function(req, res){
-  // var questionStr = 'Who was the first computer programmer?';
-  //   var answerId= 1;
 
   console.log('in get all questions and answer IDs');
-  // questionAnswerDB.find({},{
-  //           _id:0,
-  //           question:1,
-  //           answer: 0,
-  //           answerId: 1,
-  //         },function(err, qaPairs) {
-  //         if (err) {
-  //           // onErr(err, callback);
-  //           console.log('error retrieving questions'+err);
-  //         } 
-  //         else {
-  //           console.log(qaPairs);
-  //           res.json(qaPairs);
-  //         }
-  //   });
     questionAnswerDB.find({}, function(err, qaPairs){
         if(err){
           console.log('error!!!');
@@ -76,8 +59,6 @@ app.get('/question', function(req, res){
         else{
           console.log(qaPairs);
           console.log('in else');
-          // console.log(qaPairs.answerId);
-          // console.log(qaPairs.question);
           res.json({'qaPairList': qaPairs});
         }
     });
@@ -115,7 +96,7 @@ app.post('/answer', function(req, res){
   
     console.log(req.body.userAnswer);
     console.log(req.body.userAnswerID);
-    questionAnswerDB.findOne({answerId:req.body.userAnswerID}).exec(function(err, qaPair) {
+    questionAnswerDB.findById(req.body.userAnswerID).exec(function(err, qaPair) {
       if(!qaPair){
         console.log('something wrong, try again'+err);
         res.json('something wrong, try again'+err);

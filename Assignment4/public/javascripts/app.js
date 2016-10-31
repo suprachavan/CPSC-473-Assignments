@@ -8,6 +8,10 @@ Submitted by: Supra Chavan(CWID: 893448084)
 Email:supra.chavan@csu.fullerton.edu
 File: Client side javascript
 */
+
+/**
+* Function to get all the questions and display the list
+*/
 var getQuestions = function(){
 	'use strict';
     $.ajax({
@@ -22,20 +26,25 @@ var getQuestions = function(){
 
                         console.log(data.qaPairList);
                         console.log(data.qaPairList.length);
-
-
+                        
                         for(var i=0;i<data.qaPairList.length;i++){
 
-                            console.log(data.qaPairList[i].question);
-                            console.log(data.qaPairList[i].answerId);
-                            $('.allquestions_label').html(
-                            data.qaPairList[i].question);
-                            $('.span').html(data.qaPairList[i].answerId);
+                            $('.allquestions_seg').append(
+                                '<div class="ui list">'+
+                                '<div class="item">'+
+                            data.qaPairList[i].question+'</div></div');
                         }
-                                    
+                        $('.span').html(data.qaPairList[0]._id);
+                            console.log($('.span').text());
+                        $('.span1').html(
+                            data.qaPairList[0].question);            
                       	}
           });
 };
+
+/**
+* Function to post a new question-answer pair
+*/
 var postQuestion = function(jsonStr){
 	'use strict';
      $.ajax({
@@ -58,6 +67,9 @@ var postQuestion = function(jsonStr){
                     });
 };
 
+/**
+* Function to post user's answer for 1 question
+*/
 var postAnswer = function(jsonStr){
 	'use strict';
     $.ajax({
@@ -79,6 +91,9 @@ var postAnswer = function(jsonStr){
                     });
 };
 
+/**
+* Function to get the current score
+*/
 var getScore = function(){
 	'use strict';
     $.ajax({
@@ -98,60 +113,63 @@ var getScore = function(){
                                 }
                     });
 };
+var main = function(){
+    'use strict';
 
-    // var jsonStr, jsonStr2, jsonStr3, $result; 
-    // var classStr = 'r';
-    var main = function(){
-        'use strict';
+    console.log('app.js at client side');
 
-        console.log('app.js at client side');
+    getScore();
 
-        getScore();
+    $('.questions').hide();
+    $('.answers').hide();
+    $('.scores').hide();
 
-        $('.questions').hide();
-        $('.answers').hide();
-        $('.scores').hide();
+    $('.span').hide();
+    $('.span1').hide();
+    getQuestions(); //get all the questions and display on the page
 
-        $('.span').hide();
-        getQuestions();
+    $('.post_question').on('click', function(){
+        $('.question').val('');
+        $('.answer').val('');
+        $('.result1').empty();
+        $('.questions').show();
+    });
 
-        $('.post_question').on('click', function(){
-            $('.questions').show();
-        });
+    //submit button cliked to post a new question-answer pair
+    $('.submit').on('click', function(){
+        var question = document.getElementsByName('question')[0].value;
+        var answer = document.getElementsByName('answer')[0].value;
 
-        $('.submit').on('click', function(){
-            var question = document.getElementsByName('question')[0].value;
-            var answer = document.getElementsByName('answer')[0].value;
-            var answerid =  document.getElementsByName('answerid')[0].value;
+        var jsonStr = JSON.stringify({
+        	jQuestion: question, 
+        	jAnswer: answer 
+        	});
+        console.log(jsonStr);
+        postQuestion(jsonStr);
+    });
 
-            var jsonStr = JSON.stringify({
-            	jQuestion: question, 
-            	jAnswer: answer, 
-            	jAnswerId: answerid});
+    $('.show_question').on('click', function(){
+        $('.question_label').html($('.span1').text());
+        $('.answers').show();
+
+        //post answer for question
+        $('.post_answer').on('click', function(){
+            $('.result2').empty();
+            $('.uanswer').empty();
+            var uAnswer = document.getElementsByName('uanswer')[0].value;
+            var uAnswerID = $('.span').text();
+            var jsonStr = JSON.stringify({userAnswer: uAnswer, 
+            	userAnswerID: uAnswerID});
             console.log(jsonStr);
-            postQuestion(jsonStr);
+            postAnswer(jsonStr);
         });
+    });
 
-        $('.show_question').on('click', function(){
-            $('.question_label').html($('.allquestions_label').text());
-            $('.answers').show();
-
-
-            $('.post_answer').on('click', function(){
-                var uAnswer = document.getElementsByName('uanswer')[0].value;
-                var uAnswerID = $('.span').text();
-                var jsonStr = JSON.stringify({userAnswer: uAnswer, 
-                	userAnswerID: uAnswerID});
-                console.log(jsonStr);
-                postAnswer(jsonStr);
-            });
-        });
-
-        $('.show_score').on('click', function(){
-        	getScore();
-        	$('.scores').show();
-        	
-        });
+    $('.show_score').on('click', function(){
+    	getScore();
+    	$('.scores').show();
+    	
+    });
 };
 
 $(document).ready(main);
