@@ -22,10 +22,6 @@ var getQuestions = function(){
                     'http://localhost:3000/question',            
                     success: function(data) {
                         console.log('success');
-                        console.log(data);
-
-                        console.log(data.qaPairList);
-                        console.log(data.qaPairList.length);
                         
                         for(var i=0;i<data.qaPairList.length;i++){
 
@@ -56,11 +52,7 @@ var postQuestion = function(jsonStr){
                     'http://localhost:3000/question',            
                     success: function(data) {
                                     console.log('success');
-                                    console.log(data);
-                                    //  $result = $('<p class='+classStr+'>').
-                                    //  text('returned '+data.result);
-                                    // $('.result3').append($result);
-                                    $('.result1').append(data);
+                                    $('.result1').append(data.message);
                                     $('.questions').trigger('reset');
                                     $('.questions').hide();
                                 }
@@ -82,9 +74,6 @@ var postAnswer = function(jsonStr){
                     success: function(data) {
                                     console.log('success');
                                     console.log(data);
-                                    //  $result = $('<p class='+classStr+'>').
-                                    //  text('returned '+data.result);
-                                    // $('.result3').append($result);
                                     $('.result2').append(data.correct);
                                     $('.answers').trigger('reset');
                                 }
@@ -104,7 +93,7 @@ var getScore = function(){
                     'http://localhost:3000/score',            
                     success: function(data) {
                         console.log('success');
-                        console.log(data.right);
+                        console.log(data);
                         console.log(data.wrong);
                         $('.right_score_label').html(
                         	'Right score :'+data.right);

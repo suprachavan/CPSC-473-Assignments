@@ -60,7 +60,7 @@ app.get('/question', function(req, res){
         else{
           console.log(qaPairs);
           console.log('in else');
-          res.json({'qaPairList': qaPairs});
+          res.json({qaPairList: qaPairs});
         }
     });
 
@@ -77,17 +77,17 @@ app.post('/question', function(req, res){
                 q1.save(function(err, result) {
                   if(err){
                       console.log('error while adding new qa pair'+err);
-                      res.json('error while adding new qa pair');
+                      res.json({message : 'error while adding new qa pair'});
                   }
                   else{
                       console.log('added new qa pair');
-                      res.json('added new qa pair successfully');
+                      res.json({message:'added new qa pair successfully'});
                   }
                 });
         }
         else{
           console.log('qa pair already exists');
-          res.json('qa pair already exists');
+          res.json({message : 'qa pair already exists'});
         }
       }); 
     
@@ -100,7 +100,7 @@ app.post('/answer', function(req, res){
     questionAnswerDB.findById(req.body.userAnswerID).exec(function(err, qaPair) {
       if(!qaPair){
         console.log('something wrong, try again'+err);
-        res.json('something wrong, try again'+err);
+        res.json({message :'something wrong, try again'+err});
       }
       else{
         if(req.body.userAnswer === qaPair.answer){
@@ -108,14 +108,14 @@ app.post('/answer', function(req, res){
           redisClient.incr('right');
           counts.right = counts.right++;
           console.log('score increased,answer correct');
-          res.json({"correct": "true"});
+          res.json({correct: 'true'});
         }
         else{
           //increase wrong count score
           redisClient.incr('wrong');
           counts.wrong = counts.wrong++;
           console.log('score wrong increased,answer incorrect');
-          res.json({"correct": "false"});
+          res.json({correct: 'false'});
         }
       }
     });
