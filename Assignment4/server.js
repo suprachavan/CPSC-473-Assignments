@@ -139,3 +139,4 @@ app.get('/score', function(req, res){
 });
 
 app.listen(3000);
+module.exports = counts;
