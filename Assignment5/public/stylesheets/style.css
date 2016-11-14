@@ -1,0 +1,22 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.column{
+	max-width: 450px;
+}
+
+.grid {
+	background-color: lavender;
+}
+
+p {
+	padding: 5px;
+	background-color: lavender;
+	border-radius: 5px;
+}
