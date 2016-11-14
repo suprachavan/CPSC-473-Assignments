@@ -31,17 +31,29 @@ var getScore = function(){
 
 socket.on('getQuestion', function(data){
     'use strict';
+    console.log(data);
     $('.show_question').remove();
-    $('.question_label').html(data);
+    $('.nextButton').remove();
+    $('.qa_form').trigger('reset');
+    $('.question_label').html(data.question);
+    $('.span').html(data._id);
+    console.log($('.span').text()); 
     $('.answers').show();
 });
+
 socket.on('getAnswer', function(data){
     'use strict';
     console.log(data);
     $('.result2').html(data);
     getScore();
     $('.scores').show();
+    if(!$('.nextButton').length){
+        $('.answers').append(
+'<br><div class="ui buttom aligned nextButton button">'+
+'next question</div>');
+    }
 });
+
 socket.on('getScore', function(data){
     'use strict';
     console.log(data);
@@ -49,6 +61,9 @@ socket.on('getScore', function(data){
     $('.wrong_score_label').html('Wrong score :'+data.wrong);
 });
 
+/**
+* Function for sign up functionality
+*/
 var signUpFunction = function(jsonStr){
     'use strict';
     $.ajax({
@@ -64,6 +79,9 @@ var signUpFunction = function(jsonStr){
     });
 };
 
+/**
+* Function for login functionality
+*/
 var logInFunction = function(jsonStr){
     'use strict';
     $.ajax({
@@ -75,6 +93,7 @@ var logInFunction = function(jsonStr){
         success: function(data) {
                 console.log('success');
                 $('.span1').html(data.loggedUser.userName);
+                $('.nameLabel').html(data.loggedUser.userName);
                 console.log($('.span1').text());
                 $('.right_menu1').hide();
                 $('.right_menu2').show();
@@ -84,18 +103,16 @@ var logInFunction = function(jsonStr){
                 });
                 $('.login_result').empty();
                 $('.login_result').append(data.message);
-                // $('.ui.list').remove();
-
-                $('.user_seg').append(
-                  '<p>Current Online users : </p>');
+                if(!$('.CurrUsers').length){
+                    $('.user_seg').append(
+                    '<p class="CurrUsers">Current Online Players : </p>');
+                }
                 socket.on('getUsers', function(data){
                     $('.user_label').remove();
                     for(var i=0;i<data.length;i++){
-                        
                         $('.user_seg').append(
                         '<p class="user_label">'+
                         data[i]+'</p>');
-                        $('.user_label').slideDown();
                     }   
                 });
         },
@@ -121,8 +138,7 @@ var getQuestions = function(){
         'http://localhost:3000/question',            
         success: function(data) {
             console.log('success');
-            $('.span').html(data.newQuestion._id);
-            console.log($('.span').text()); 
+            console.log(data);
         }
     });
 };
@@ -164,9 +180,6 @@ var postAnswer = function(jsonStr){
             console.log('success');
             console.log(data);
             $('.qa_form').trigger('reset');
-            $('.answers').append(
-'<br><div class="ui buttom aligned nextButton button">'+
-'next question</div>');
         }
     });
 
@@ -200,6 +213,7 @@ var main = function(){
     });
 
     $('.login').on('click', function(){
+        $('.start_game').remove();
         $('.login_form').trigger('reset');
         $('.login_result').empty();
         $('.login_modal').modal('show');
@@ -207,19 +221,19 @@ var main = function(){
 
     $('.login_btn').on('click', function(){
         var uName =document.getElementsByName('username')[0].value;
-        // socket.emit('loggedInUser', uName, function(data){});
         var jsonStr = JSON.stringify({userName : uName});
-            logInFunction(jsonStr);
+        logInFunction(jsonStr);
     });
 
-    $('.logout').on('click', function(){
+    $('.logout').on('click', function(){ 
         $('.right_menu1').show();
         $('.right_menu2').hide();
         $('.show_question').hide();
         $('.answers').hide();
-        socket.emit('disconnect user', $('.span1').text(), function(data){
-            console.log(data);                       
+        socket.emit('disconnect user', $('.nameLabel').val(), function(data){
+            console.log(data);                      
         });
+        
     });
 
     $('.answers').on('click', '.nextButton', function(){
@@ -251,19 +265,19 @@ var main = function(){
         getQuestions();
         socket.emit('newRoundStarted', 'new round has started');
         $('.show_question').remove();
-
-        //post answer for question
-        $('.post_answer').on('click', function(){
-            $('.result2').empty();
-            $('.uanswer').empty();
-            var uAnswer = document.getElementsByName('uanswer')[0].value;
-            var uAnswerID = $('.span').text();
-            var jsonStr = JSON.stringify({userAnswer: uAnswer, 
-                userAnswerID: uAnswerID});
-            console.log(jsonStr);
-            postAnswer(jsonStr);
-        });
      });
+
+    //post answer for question
+    $('.post_answer').on('click', function(){
+        $('.result2').empty();
+        $('.uanswer').empty();
+        var uAnswer = document.getElementsByName('uanswer')[0].value;
+        var uAnswerID = $('.span').text();
+        var jsonStr = JSON.stringify({userAnswer: uAnswer, 
+            userAnswerID: uAnswerID});
+        console.log(jsonStr);
+        postAnswer(jsonStr);
+    });
 };
 
 $(document).ready(main);

@@ -62,7 +62,8 @@ io.sockets.on('connection', function(socket){
     };
     socket.on('disconnect user', function(data){
       socket.username = data;
-      loggedInUsersList.pop(socket.username);
+      var index = loggedInUsersList.indexOf(socket.userName);
+      loggedInUsersList.splice(index, 1);
       updateLoggedInUsers();
     });
     socket.on('newRoundStarted', function(data){
@@ -92,7 +93,6 @@ mongoose.set('debug', true);
 var qaSchema = new mongoose.Schema({  
   question: String,
   answer: String
-  // answerId: String
 });
 
 var userSchema = new mongoose.Schema({  
@@ -168,7 +168,7 @@ app.get('/question', function(req, res){
 	      console.log(qaPairIndex);
 	      
 	      res.json({newQuestion: qaPairIndex});
-	      updateQuestion(qaPairIndex.question);
+	      updateQuestion(qaPairIndex);
 	    }
 	}); //end find
 
