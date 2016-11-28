@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+
+<!--
+CPSC 473 Assignment 6 
+Submitted by: Supra Chavan(CWID: 893448084)
+Email:supra.chavan@csu.fullerton.edu
+File: client side index.html
+Some part of code (e.g. signup, login) resembles code from our CPSC 473 Project 1- Filmder
+https://github.com/suprachavan/Project1-Filmder
+-->
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Assignment 6 Online Trivia Game</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+	<div class="ui menu">
+        <div class="right right_menu2 menu" data-bind="visible:showLogoutMenu">
+            <div class="item">
+                <div class="ui left labeled button" tabindex="0">
+                	<a class="ui basic right pointing nameLabel label" data-bind="text:nameLabel"></a>
+                  	<div class="ui red logout button" data-bind="click:onLogOutClick">
+                    	<i class="log out icon"></i>Log Out
+                  	</div>
+                </div>
+            </div>
+        </div>
+	</div>
+	<div class="ui small signup_modal modal">
+		<div class="ui form_seg segment">
+			<form class="ui large signup_form form">
+	        	<div class="field">
+	                <input type="text" name="uname" placeholder="Enter User Name " data-bind="value:signedupUser">
+	            </div>
+	            <div class="field">
+	                <div class="ui blue signup_btn button" data-bind="click:signUpUser">
+	                    Sign Up
+	                </div>
+	            </div>   
+	            <div class="signup_result" data-bind="text:signupMsg, visible:showSignupResult"></div>
+	        </form>
+	    </div>
+	</div>
+	<div class="ui small login_modal modal">
+		<div class="ui form_seg segment">
+			<form class="ui large signup_form form">
+	        	<div class="field">
+	                <input type="text" name="username" placeholder="Enter User Name" data-bind="value:loggedinUser">
+	            </div>
+	            <div class="field">
+	                <div class="ui blue login_btn button" data-bind="click:logInUser">
+	                    Join game
+	                </div>
+	            </div>   
+	            <div class="login_result" data-bind="text:loginMsg, visible:showLoginResult"></div>
+	        </form>
+	        <div class="span1" data-bind="text:span1Name, visible:showSpan1"></div>
+	    </div>
+	</div>
+    <div class="ui middle aligned center aligned grid" style="padding-bottom:200px; padding-top:20px;">
+    	<div class="column">
+    		<div class="ui header">Online Trivia Game</div>
+    		 <div class="ui gray segment">
+    			<div class="span" data-bind="text:spanId, visible:showSpan"></div>
+		    	<div class="ui blue segment">
+	    			<div class="ui blue post_question button" data-bind="click:onPostQuestionClick">Post a new question</div>
+	    			<div class="ui gray questions segment" data-bind="visible:showQuestionsSegment">
+		    			<form class="ui qa_form form">
+				    		<div class="field">
+				    			<div class="ui left input">
+				                    <input type="text" name="question" placeholder="Enter a new question " data-bind="value:postedQuestion">
+				                </div>
+				    		</div>
+				    		<div class="field">
+				    			<div class="ui left input">
+				    				<input type="text" name="answer" placeholder="Enter correct answer for the question" data-bind="value:postedAnswer">
+				    			</div>
+				    		</div>
+				    		<div class="ui green submit button" data-bind="click:onSubmitClick">Submit</div>
+				    	</form>
+		    		</div>
+		    		<div class="result1" data-bind="text:result1, visible:showResult1"></div>
+		    	</div>
+		    	<div class="ui blue user_seg segment">
+                    <p data-bind="visible:showPtag">Current Online Players</p>
+		    		<div class="ui onlineUserSeg segment" data-bind="foreach:userList, visible:showUserList">
+                        <p data-bind="text:onlineUserName"></p>
+                    </div>
+		    		<div class="right right_menu1 menu" data-bind="visible:showUserMenu">
+			            <div class="item">
+			                <div class="ui buttons">
+			                    <div class="ui signup blue button" data-bind="click: onSignUpClick">Sign Up</div>
+			                    <div class="or"></div>
+			                    <div class="ui login green button" data-bind="click: onLogInClick">Log in</div>
+			                </div>
+			            </div>
+			        </div>
+			        <div class="ui red show_question button" data-bind="click:onShowQuestionClick, visible:showQuestion">Start a new round!</div>
+        		</div>		
+	    		<div class="ui gray answers segment" data-bind="visible:showAnswersSegment">
+	    			<form class="ui qa_form form">
+	    				<div class="field">
+			    			<div class="ui input">
+			    				<div class="ui question_label label" data-bind="text:questionLabel"></div>
+			    			</div>
+			    		</div>
+			    		<div class="field">
+			    			<div class="ui left ans input">
+			    				<input type="text" name="uanswer" placeholder="Enter your answer for the question" data-bind="value:uanswer">
+			    			</div>
+			    		</div>
+			    		<div class="span1"></div>
+			    		<div class="ui green post_answer button" data-bind="click:onPostAnswerClick">Submit your answer</div>
+			    		<div class="ui gray nextButton button" data-bind="click: onNextQuestionClick, visible:showNextButton">Next Question</div>
+			    	</form>
+		    	</div>
+		    	<div class="result2" data-bind="text:result2"></div>   
+				<div class="ui blue segment">
+		    		<div class="ui gray scores segment" data-bind="visible:showScoresSegment">
+	    				<div class="field">
+			    			<div class="ui input">
+			    				<div class="ui right_score_label label" data-bind="text:rightCount"></div>
+			    			</div>
+			    		</div>
+			    		<div class="field">
+			    			<div class="ui input">
+			    				<div class="ui wrong_score_label label" data-bind="text:wrongCount"></div>
+			    			</div>
+			    		</div>	
+			    	</div>
+				</div> 
+			</div> 
+    	</div>
+    </div>
+    <script src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.1.0.js"></script>
+    <script src="javascripts/app.js"></script>   
+</body>
+</html>
