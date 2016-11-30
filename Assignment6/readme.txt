@@ -1,4 +1,4 @@
-readme.txt for CPSC 473 Assignment 5
+readme.txt for CPSC 473 Assignment 6
 
 Main Functionalitites:
 
@@ -27,9 +27,9 @@ Main Functionalitites:
 
 Steps to run the code-
 
-Download/Clone the entire folder Assignment 5 from this repository.
+Download/Clone the entire folder Assignment6 from this repository.
 Place the folder in virtual machine.
-Switch to directory Assignment 5 by using command in the VM command prompt- `cd Assignment5`
+Switch to directory Assignment6 by using command in the VM command prompt- `cd Assignment6`
 Install all dependencies using command- `npm install`
 Start the server, MongoDB, Redis by using command- `foreman start`
 Note: Make sure process for MongoDB and Redis is topped before running step 5, otherwise it will result in an error. In case of an error, either stop these processes before running Step 5 again or you may directly start the server by using command- node server.js
